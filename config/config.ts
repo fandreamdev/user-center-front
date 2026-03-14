@@ -168,4 +168,5 @@ export default defineConfig({
   esbuildMinifyIIFE: true,
   requestRecord: {},
   exportStatic: {},
+  base: "/user-center-front/",
 });
