@@ -24,6 +24,7 @@ export async function getInitialState(): Promise<{
   const fetchUserInfo = async () => {
     try {
       const user = await queryCurrentUser();
+      console.log("curUser: ", user);
       return user as API.CurrentUser;
     } catch (_error) {
       history.push(loginPath);
@@ -32,6 +33,7 @@ export async function getInitialState(): Promise<{
   };
   // 如果不是登录页面，执行
   const { location } = history;
+  console.log(location, location.pathname);
   if (![loginPath, registerPath].includes(location.pathname)) {
     const currentUser = await fetchUserInfo();
     return {
@@ -137,6 +139,6 @@ export const layout: RunTimeLayoutConfig = ({
  * @doc https://umijs.org/docs/max/request#配置
  */
 export const request: RequestConfig = {
-  baseURL: "http://localhost:8000",
+  baseURL: isDev ? "http://localhost:8000" : "http://106.54.23.126",
   ...errorConfig,
 };

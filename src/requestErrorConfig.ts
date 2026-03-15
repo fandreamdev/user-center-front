@@ -60,9 +60,13 @@ export const errorConfig: RequestConfig = {
   responseInterceptors: [
     (response) => {
       // 拦截响应数据，进行个性化处理
+      const { success } = response.data as unknown as ResponseStructure;
+      if (success === false && errorConfig?.errorConfig?.errorThrower) {
+        errorConfig.errorConfig.errorThrower(response.data);
+      }
 
-      console.log("全局响应拦截器：", response);
-      return response;
+      console.log("自定义全局响应拦截器：", response);
+      return response.data as any;
     },
   ],
 };
